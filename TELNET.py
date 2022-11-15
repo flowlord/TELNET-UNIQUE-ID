@@ -12,8 +12,7 @@ POUR LE PROJET DE FILM BYG EYE
 
 from random import randint,choice
 from hashlib import sha3_512
-from string import ascii_letters
-
+import uuid
 from collect_info import*
 
 
@@ -22,13 +21,7 @@ def hash(src):
 
 
 def gen_mdp():
-	x = randint(90,9999)
-	
-	p = ""
-	
-	for e in range(x):
-		p = p+ choice(ascii_letters)
-	
+	p = str(uuid.uuid4())
 	return hash(p)
 
 
@@ -68,7 +61,7 @@ oes = others()
 print("\n\n\n")
 
 UID = hash(key1+key2+key3+user_entry+gl+oes)
-UID = UID[:20]
+UID = UID[:randint(15,55)]
 
 print(UID)
 

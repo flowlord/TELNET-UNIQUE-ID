@@ -8,12 +8,7 @@ def geolocalisation():
 
 def others():
     uname = str(platform.uname())
-    svmem = str(psutil.virtual_memory())
     partitions = str(psutil.disk_partitions())
 
-    return uname+svmem+partitions
-
-
-
-
+    return uname+partitions
 

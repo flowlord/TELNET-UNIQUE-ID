@@ -1,14 +1,9 @@
 """
-TELNET V1
+TELNET V2
 UNIQUE ID
 BY SOLARIS SOFTWARE BULARES 🌞
 
-CE PROGRAMME EST DESTINE POUR UNE OEUVRE FICTIVE
-POUR LE PROJET DE FILM BIG EYE
-IL N'EST EN AUCUN CAS A ÊTRE UTILISE POUR
-SECURISE VOS DONNEES PERSONNELLES
-
-15/11/2022
+20/06/2023
 """
 
 
@@ -16,6 +11,7 @@ from random import randint,choice
 from hashlib import sha3_512
 import uuid
 from collect_info import*
+from MSE import mse_cipher
 
 
 def hash(src):
@@ -27,46 +23,45 @@ def gen_mdp():
 	return hash(p)
 
 
-try:
-	file = open("keys.pkm","a")
-	file.close()
-except FileNotFoundError:
-	file = open("keys.pkm","w")
-	file.close()
+def get_user_ID(user_entry):
+	ID = hash(user_entry)
+	gl = geolocalisation()
+	oes = others()
+
+	print("\n\n\n")
+
+	UID = hash(user_entry+gl+oes)
+
+	return UID
 
 
-def save_keys(key):
-	file = open("keys.pkm","a").write(key)
+def get_devian_user_ID(user_entry):
+	ID = hash(user_entry)
+	gl = geolocalisation()
+	oes = others()
 
-key1,key2,key3 = gen_mdp(),gen_mdp(),gen_mdp()
+	key1,key2,key3 = gen_mdp(),gen_mdp(),gen_mdp()
 
-save_keys(key1+"\n\n")
-save_keys(key2+"\n\n")
-save_keys(key3+"\n\n")
+	print("\n\n\n")
+
+	UID = hash(key1+key2+key3+user_entry+gl+oes+mse_cipher(gen_mdp()))
+
+	return UID
+
 
 
 user_entry = """
 Jhon
 Doe
+jhon_doe@gmail.com
 44
-Californie
+California
 23/05/1999
-password: ay89ay89@@@
+password: ay429ay887@@@
 """
 
-
-user_entry = hash(user_entry)
-
-gl = geolocalisation()
-oes = others()
-
-print("\n\n\n")
-
-UID = hash(key1+key2+key3+user_entry+gl+oes)
-UID = UID[:randint(15,55)]
-
-print(UID)
-
+ID = get_user_ID(user_entry)
+print(ID)
 
 
 
